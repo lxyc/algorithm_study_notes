@@ -60,7 +60,34 @@ class LinkList {
 
   // 在链表指定位置移除元素
   removeAt(index) {
-    
+    if (index < 0 || index >= this._length) return false;
+
+    if (index === 0) {
+      this._head = this._head.next;
+    } else {
+      const prevNode = this.getNode(index - 1);
+      const delNode = prevNode.next;
+      const nextNode = delNode.next;
+      // 若移除为最后一个元素
+      if(!nextNode) this._tail = prevNode;
+      prevNode.next = nextNode;
+    }
+
+    this._length -= 1;
+    return true;
+  }
+
+  // 判断数据是否存在于链表内，存在返回index，否则返回-1
+  indexOf(data) {
+    let currNode = this._head;
+    let index = 0;
+    while (currNode) {
+      if (currNode.data === data) return index;
+      index += 1;
+      currNode = currNode.next;
+    }
+
+    return -1;
   }
 
   getHead() {
@@ -73,6 +100,10 @@ class LinkList {
 
   size() {
     return this._length;
+  }
+
+  isEmpty() {
+    return !this._length;
   }
 
   // 打印链表
@@ -94,6 +125,8 @@ link.append(2);
 link.append(3);
 
 link.insert(3, 0);
+
+console.log(link.indexOf(0));
 
 link.print();
 
