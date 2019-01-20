@@ -2,6 +2,7 @@ class Node {
   constructor(data) {
     this.data = data;
     this.next = null;
+    this.prev = null;
   }
 }
 
@@ -9,10 +10,9 @@ function _reverseByRecusive(node) {
   if (!node) return null;
   if (!node.next) return node; // 递归终止条件
 
-  let newNode = _reverseByRecusive(node.next);
+  _reverseByRecusive(node.next);
   node.next.next = node;
   node.next = null;
-  return newNode;
 };
 
 function _reversePrint(node){
@@ -140,8 +140,10 @@ class LinkedList {
     let prevNode = null;
     let currNode = this._head;
     while (currNode) {
+      // 记录下一节点并重塑连接
       const nextNode = currNode.next;
       currNode.next = prevNode;
+      // 轮询至下一节点
       prevNode = currNode;
       currNode = nextNode;
     }
@@ -182,14 +184,61 @@ class LinkedList {
   }
 }
 
-const link = new LinkedList();
+class Stack {
+  constructor() {
+    this._link = new LinkedList();
+  }
+  push(item) {
+    this._link.append(item);
+  }
+  pop() {
+    const tailIndex = this._link - 1;
+    return this._link.removeAt(tailIndex);
+  }
+  peek() {
+    return this._link.getTail();
+  }
+  size() {
+    this._link.size();
+  }
+  isEmpty() {
+    return this._link.isEmpty();
+  }
+  clear() {
+    this._link.clear()
+  }
+};
 
+class Queue {
+  constructor() {
+    this._link = new LinkedList();
+  }
+  enqueue(item) {
+    this._link.append(item);
+  }
+  dequeue() {
+    return this._link.removeAt(0);
+  }
+  head() {
+    return this._link.getHead();
+  }
+  tail() {
+    return this._link.getTail();
+  }
+  size() {
+    this._link.size();
+  }
+  isEmpty() {
+    return this._link.isEmpty();
+  }
+  clear() {
+    this._link.clear()
+  }
+}
+
+const link = new LinkedList();
 link.append(1);
 link.append(2);
 link.append(3);
 
-link.insert(0, 0);
-link.print();
-
-link.reverseByRecusive(link);
-link.print();
+link.reverseByRecusive();
