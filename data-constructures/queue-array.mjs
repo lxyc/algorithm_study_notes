@@ -1,4 +1,4 @@
-class Queue {
+export default class QueueArray {
   constructor() {
     this._items = [];
   }
@@ -35,23 +35,3 @@ class Queue {
     return this._items.toString();
   }
 }
-
-const arr = Array.from({ length: 100 }, (_, i) => i*i);
-function delRing(list) {
-  const queue = new Queue();
-  list.forEach(e => { queue.enqueue(e); });
-
-  let index = 0;
-  while (queue.size() !== 1) {
-    const item = queue.dequeue();
-    index += 1;
-    if (index % 3 !== 0) {
-      queue.enqueue(item);
-    }
-  }
-
-  console.log(index);
-  return queue.tail();
-}
-
-console.log(delRing(arr));
