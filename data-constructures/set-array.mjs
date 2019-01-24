@@ -1,69 +1,73 @@
 export default class Set {
   constructor() {
-    this._items = {};
-    this._length = 0;
+    this._items = [];
   }
 
-  add(value) {
-    if (this.has(value)) return false;
-    this._items[value] = value;
-    this._length += 1;
+  add(item) {
+    if (this._items.indexOf(item) !== -1) return false;
+
+    this._items.push(item);
     return true;
   }
 
-  remove(value) {
-    if (!this.has(value)) return false;
-    delete this._items[value];
-    this._length -= 1;
+  remove(item) {
+    const pos = this._items.indexOf(item);
+    if (pos === -1) return false;
+
+    this._items.splice(pos, 1);
     return true;
+  }
+
+  has(item) {
+    return this._items.indexOf(item) !== -1;
+  }
+
+  clear() {
+    this._items = [];
+  }
+
+  size() {
+    return this._items.length;
   }
 
   values() {
-    return Object.values(this._items);
+    return this._items;
   }
 
-  // 并集
   union(otherSet) {
     const unionSet = new Set();
 
     const values = this.values();
     values.forEach(item => unionSet.add(item));
 
-    const otherValues = otherSet.values();
-    otherValues.forEach(item => unionSet.add(item));
+    const otherSetValues = otherSet.values();
+    otherSetValues.forEach(item => unionSet.add(item));
 
     return unionSet;
   }
 
-  // 交集
   intersection(otherSet) {
     const intersectionSet = new Set();
 
     const values = this.values();
     values.forEach(item => {
-      if (otherSet.has(item)) {
-        intersectionSet.add(item);
-      }
-    })
+      if (otherSet.has(item)) intersectionSet.add(item);
+    });
 
     return intersectionSet;
   }
 
-  // 差集
   difference(otherSet) {
     const differenceSet = new Set();
 
     const values = this.values();
     values.forEach(item => {
-      if (!otherSet.has(item)) {
-        differenceSet.add(item);
-      }
+      if (!otherSet.has(item)) differenceSet.add(item);
     })
 
     return differenceSet;
   }
 
-  // 子集
   isSubsetOf(otherSet) {
     if (this.size() > otherSet.size()) return false;
 
@@ -72,24 +76,6 @@ export default class Set {
       const item = values[i];
       if (!otherSet.has(item)) return false;
     }
-
     return true;
-  }
-
-  has(value) {
-    return this._items.hasOwnProperty(value);
-  }
-
-  clear() {
-    this._items = {};
-    this._length = 0;
-  }
-
-  size() {
-    return this._length;
-  }
-
-  isEmpty() {
-    return !this._length;
   }
 }
