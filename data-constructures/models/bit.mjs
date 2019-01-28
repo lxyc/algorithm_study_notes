@@ -1,15 +1,16 @@
-export const BIT_SIZE = 64;
+export const BIT_SIZE = 32;
 
 // 设置位的值
 export function setBit(bitMap, bit) {
-  var arrIndex = Math.floor(bit / BIT_SIZE);
-  var bitIndex = Math.floor(bit % BIT_SIZE);
+  const arrIndex = Math.floor(bit / BIT_SIZE);
+  const bitIndex = Math.floor(bit % BIT_SIZE);
   bitMap[arrIndex] |= (1 << bitIndex);
 }
 
 // 读取位的值
 export function getBit(bitMap, bit) {
-  var arrIndex = Math.floor(bit / BIT_SIZE);
-  var bitIndex = Math.floor(bit % BIT_SIZE);
-  return bitMap[arrIndex] &= (1 << bitIndex);
+  const arrIndex = Math.floor(bit / BIT_SIZE);
+  const bitIndex = Math.floor(bit % BIT_SIZE);
+  const ret = bitMap[arrIndex] & (1 << bitIndex);
+  return ret;
 }
