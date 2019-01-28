@@ -1,31 +1,32 @@
-export default class HashTable {
-  constructor(size = 37) {
-    this._table = new Array(size);
-    this._length = size;
+export default 
+class HashTable {
+  constructor() {
+    this._table = [];
   }
 
-  loseloseHashCode(key) {
+  // 哈希函数【社区中实践较好的简单哈希函数】
+  hashMethod(key) {
     if (typeof key === 'number') return key;
 
-    let hash = 0;
+    let hash = 5381;
     for (let i = 0; i < key.length; i += 1) {
-      hash += key.charCodeAt(i);
+      hash = hash * 33 + key.charCodeAt(i);
     }
-    return hash % this._length;
+    return hash % 1013;
   }
 
   put(key, value) {
-    const pos = this.loseloseHashCode(key);
+    const pos = this.hashMethod(key);
     this._table[pos] = value;
   }
 
   get(key) {
-    const pos = this.loseloseHashCode(key);
+    const pos = this.hashMethod(key);
     return this._table[pos];
   }
 
   remove(key) {
-    const pos = this.loseloseHashCode(key);
+    const pos = this.hashMethod(key);
     delete this._table[pos];
   }
 
