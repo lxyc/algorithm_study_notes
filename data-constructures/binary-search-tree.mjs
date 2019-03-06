@@ -142,7 +142,7 @@ export default class BinarySearchTree {
       node.left = this.removeNode(node.left, key);
       return node;
     }
-    if (key > node.key) { // 目标key小于当前节点key，继续向左找
+    if (key > node.key) { // 目标key小于当前节点key，继续向右找
       node.right = this.removeNode(node.right, key);
       return node;
     }
@@ -152,11 +152,11 @@ export default class BinarySearchTree {
       node = null;
       return node;
     }
-    if (node.right === null) { // 仅有左侧节点
+    if (node.right === null) { // 目标节点仅有左侧节点
       node = node.left;
       return node;
     }
-    if (node.left === null) { // 仅有右侧节点
+    if (node.left === null) { // 目标节点仅有右侧节点
       node = node.right;
       return node;
     }
