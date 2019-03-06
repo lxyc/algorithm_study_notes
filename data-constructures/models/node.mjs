@@ -11,3 +11,11 @@ export class DoublyNode extends Node {
     this.prev = null;
   }
 }
+
+export class BinaryTreeNode {
+  constructor(data) {
+    this.key = data;
+    this.left = null;
+    this.right = null;
+  }
+}
